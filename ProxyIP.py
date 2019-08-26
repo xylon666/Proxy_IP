@@ -7,10 +7,8 @@ headers = {'Upgrade-Insecure-Requests':'1',
     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Encoding':'gzip, deflate, sdch, br',
     'Accept-Language':'zh-CN,zh;q=0.8',
-    #'Connection':'close',
+    'Connection':'close',
     }
-s = requests.session()
-s.keep_alive = False
 
 ip_url = 'http://httpbin.org/ip'
 
@@ -31,10 +29,6 @@ def get_ip_list(url):
     with concurrent.futures.ThreadPoolExecutor(len(ip_list)) as x:
         for ip in ip_list:
             x.submit(ip_test,ip)
-    #         if t:
-    #             true_ip.append(ip)
-    # print(true_ip)
-    # return true_ip
 
 def ip_test(ip):
     proxies = {
@@ -51,12 +45,8 @@ def ip_test(ip):
             print('测试通过')
             print(proxies)
             print(response.text)
-            # return 1
-        # else:
-        #     return 0
     except Exception as e:
         print(e)
-    # return 0
 
 def get_random_ip(ip_list):
     proxy_list = []
